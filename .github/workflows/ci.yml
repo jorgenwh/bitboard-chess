@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y build-essential cmake
+      - name: Build
+        run: |
+          mkdir -p build
+          cd build
+          cmake ..
+          make
+      - name: Run perft tests
+        run: |
+          cd build
+          ../tests/run_perft_tests.sh
