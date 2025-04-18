@@ -19,7 +19,7 @@ jobs:
           cd build
           cmake ..
           make
-      - name: Run perft tests
+      - name: Run tests
         run: |
           cd build
-          ../tests/run_perft_tests.sh
+          ctest --output-on-failure
